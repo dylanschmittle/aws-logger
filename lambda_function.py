@@ -20,7 +20,7 @@ def lambda_handler(event, context):
     conn = logLogger(MONGO_URI, S3_BUCKET, LOG_GROUPS)
     # Send ENV for Groups to grab into this call, iterate
     # through list of groups
-    conn.put_streams(LOG_GROUPS)
+    conn.put_groups()
 
     if(conn.hasFailed):
         return {
