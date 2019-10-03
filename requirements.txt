@@ -3,4 +3,3 @@ json
 time
 logging
 pymongo
-botocore

@@ -58,31 +58,22 @@ class LogLogger():
         self.time_end = int(time.time()) * 1000
         self.time_start = ((int(time.time())) * 1000) - 120000
 
-    def start(self):
+    def fetch(self):
         """Summary
         Default Log fetch, grabs all the streams under the log groups Beta/CI
         Returns:
             TYPE: Description
         """
         # These two and nested asyncio
-        self.put_group(self, "CI")
-        self.put_group(self, "Beta")
+        for x in self.__logGroups:
+            self.put_group(self, self.__logGroups[x])
+
         # Wait for the above and then squash
         self.squash(self)
-        # Send as async
-        self.put(self)
 
-        return {'statusCode': 200, 'body': "CI and Beta Fargate Logs Sent"}
-
-    def start(self, LOG_GROUPS):
-        """Summary
-        This will send all the
-        Args:
-            LOG_GROUPS (TYPE): Description
-        Returns:
-            TYPE: Description
-        """
-        return {'statusCode': 501, 'body': "Not Implemented"}
+        # For DEBUG only, switch back later
+        # return {'statusCode': 200, 'body': "CI and Beta Fargate Logs Sent"}
+        return self.__document_que
 
     def get_all(self):
         """Summary
@@ -131,7 +122,7 @@ class LogLogger():
         Returns:
             TYPE: Description
         """
-        response = __client.describe_log_streams(
+        response = self.__client.describe_log_streams(
             logGroupName=group,
             orderBy='LastEventTime',
             descending=True,
@@ -155,18 +146,18 @@ class LogLogger():
         Returns:
             TYPE: Description
         """
-        response = __client.get_log_events(
+        response = self.__client.get_log_events(
             logGroupName=group,
             logStreamName=stream,
-            startTime=time_start,
-            endTime=time_end,
+            startTime=self.time_start,
+            endTime=self.time_end,
         )
 
         for i in response['events']:
-            m = respose['events'][i]['message']
-            t = respose['events'][i]['timestamp']
+            m = response['events'][i]['message']
+            t = response['events'][i]['timestamp']
             f = "[Time]: "+t+" [Message]: "+m
-            __document_que.append(f)
+            self.__document_que.append(f)
 
         return {
             'statusCode': 200,
@@ -221,21 +212,25 @@ class LogLogger():
         """
         t = time.time()
         try:
-            __db.insert(__document_que[i])
+            self.__db.insert(self.__document_que[i])
         except ClientError as e:
             logging.error(e)
             print(t + " time \/n")
-            print(json.dumps(__document_que[i]))
+            print(json.dumps(self.__document_que[i]))
         # Case 1
         else:
-            __upload_file(t + "-error", __bucket, __document_que[i])
+            self.__upload_file(
+                t + "-error",
+                self.__bucket,
+                self.__document_que[i]
+                )
             return {
                 'statusCode': 202,
                 'body': "Exception : document object ["+i+"] sent to s3",
             }
         # Case 2
         finally:
-            del __document_que[i]
+            del self.__document_que[i]
             return {
                 'statusCode': 200,
                 'body': "document object ["+i+"] sent to destination",

@@ -1,15 +1,7 @@
 import EzAws
 import LogLogger
 import Report
-import boto3
 import json
-import json
-import logging
-import time
-
-from botocore.exceptions import ClientError
-
-from pymongo import MongoClient
 
 
 def lambda_handler(event, context):
@@ -19,18 +11,26 @@ def lambda_handler(event, context):
     # if event is timed event, throw the logs from the last
     # time till now at the mELK stack
     # Connections Are Opening
-    conn = logLogger(MONGO_URI, S3_BUCKET, LOG_GROUPS)
+    groups = ["Ci", "Beta"]
+    mongo_uri = "#ENV IN LAMBDA"
+    s3_name = "#ENV IN LAMBDA"
+    conn = LogLogger(mongo_uri, s3_name, groups)
     # Send ENV for Groups to grab into this call, iterate
     # through list of groups
-    conn.put_groups()
+    document = conn.fetch()
+    print(json.dumps(document))
+    transfer = conn.put_mongo()
+    print(json.dumps(transfer))
+    s3transfer = conn.put_s3()
+    print(json.dumps(s3transfer))
 
     if(conn.hasFailed):
         return {
             'statusCode': 500,
-            'body': LogLogger.dumps(logger),
+            'body': conn.dumps()
             }
 
     return {
         'statusCode': 200,
-        'body': json.dumps('Log logging sucessful'),
+        'body': 'Log logging sucessful'
         }
