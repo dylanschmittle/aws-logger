@@ -1,0 +1,772 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"put_",
+				"put_stream\tabc"
+			],
+			[
+				"log",
+				"logStreamName\tabc"
+			],
+			[
+				"logs",
+				"logStreamName\tabc"
+			],
+			[
+				"logStream",
+				"logStreamName\tabc"
+			],
+			[
+				"logS",
+				"logStreams\tabc"
+			],
+			[
+				"des",
+				"destination\tabc"
+			],
+			[
+				"__do",
+				"__document_que\tabc"
+			],
+			[
+				"ch",
+				"chdir"
+			],
+			[
+				"default",
+				"default_path"
+			],
+			[
+				"app",
+				"app\tabc"
+			],
+			[
+				"local",
+				"local.txt\tabc"
+			],
+			[
+				"pyt",
+				"python-compile\tabc"
+			],
+			[
+				"glpk",
+				"glpk\t(Dockerfile.new)"
+			],
+			[
+				"re",
+				"requirements\t(Dockerfile)"
+			],
+			[
+				"find",
+				"find_packages\tfunction"
+			],
+			[
+				"set",
+				"setup\tfunction"
+			],
+			[
+				"fin",
+				"find_packages\tstatement"
+			],
+			[
+				"setup",
+				"setuptools\tmodule"
+			],
+			[
+				"distu",
+				"distutils\tmodule"
+			],
+			[
+				"run",
+				"runtime-base-glpk\tabc"
+			],
+			[
+				"runtime-base",
+				"runtime-base-glpk\tabc"
+			],
+			[
+				"glp",
+				"glpsol\tabc"
+			],
+			[
+				"runtime",
+				"runtime-base\tabc"
+			],
+			[
+				"gkl",
+				"glpk-compile\tabc"
+			],
+			[
+				"update",
+				"updated-image\tabc"
+			],
+			[
+				"comp",
+				"compile-image\tabc"
+			],
+			[
+				"no",
+				"no-cache"
+			],
+			[
+				"requi",
+				"requirements.txt\tabc"
+			],
+			[
+				"res",
+				"results_final.txt\tabc"
+			],
+			[
+				"resul",
+				"results"
+			],
+			[
+				"spare3",
+				"spare3\tabc"
+			],
+			[
+				"sp",
+				"spare5\tabc"
+			],
+			[
+				"spare",
+				"spare3\tabc"
+			],
+			[
+				"jake",
+				"jake\tabc"
+			],
+			[
+				"Pri",
+				"PrivateSubnet"
+			],
+			[
+				"Pu",
+				"PublicSubnet"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"term",
+				"Terminus: Open Default Shell in View"
+			],
+			[
+				"repl ip",
+				"SublimeREPL: Python - IPython"
+			],
+			[
+				"ter",
+				"Terminus: Open Default Shell in View"
+			],
+			[
+				"rep",
+				"SublimeREPL: Python - IPython"
+			],
+			[
+				"isntall",
+				"Package Control: Install Package"
+			],
+			[
+				"toggle",
+				"View: Toggle Side Bar"
+			],
+			[
+				"json",
+				"Pretty JSON: Format and Sort JSON"
+			],
+			[
+				"black",
+				"Formatter: Beautify With Black"
+			],
+			[
+				"format",
+				"Sublack: Format all"
+			],
+			[
+				"black ",
+				"Sublack: Start Blackd Server"
+			],
+			[
+				"vim",
+				"ActualVim: Disable (Global)"
+			],
+			[
+				"term vi",
+				"Terminus: Open Default Shell in View"
+			],
+			[
+				"ter view",
+				"Terminus: Open Default Shell in View"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"actu",
+				"ActualVim: Disable (Global)"
+			],
+			[
+				"sphinx",
+				"SublimeREPL: Python - Sublime Text Console"
+			],
+			[
+				"theme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"vagrant",
+				"Anaconda: Vagrant Status"
+			],
+			[
+				"color",
+				"UI: Select Color Scheme"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"termin op",
+				"Terminus: Toggle Panel"
+			],
+			[
+				"t",
+				"Terminus: Toggle Panel"
+			],
+			[
+				"term op",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"git his",
+				"Git: Commit history"
+			],
+			[
+				"isntall ",
+				"Package Control: Install Package"
+			],
+			[
+				"flake",
+				"User: Disable Python Flake8 Lint for this file"
+			],
+			[
+				"color scheme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"",
+				"ActualVim: Enable (Global)"
+			],
+			[
+				"file in",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"file view",
+				"File: New View into File"
+			],
+			[
+				"folder",
+				"Project: Refresh Folders"
+			],
+			[
+				"ter open",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"termin theme",
+				"Terminus Utilities: Select Theme"
+			],
+			[
+				"terminus se",
+				"Terminus Utilities: Select Theme"
+			],
+			[
+				"terminus co",
+				"Preferences: Terminus Command Palette"
+			],
+			[
+				"ter op",
+				"Terminus: Open Default Shell in View"
+			],
+			[
+				"termin",
+				"Terminus: Open Default Shell in View"
+			],
+			[
+				"term res",
+				"Terminus: Reset"
+			],
+			[
+				"term pre",
+				"Preferences: Terminus Settings"
+			],
+			[
+				" reset ",
+				"Terminus: Reset"
+			],
+			[
+				"terminus",
+				"Preferences: Terminus Settings"
+			],
+			[
+				"docst",
+				"AutoDocstring: All"
+			],
+			[
+				"packages",
+				"Package Control: List Packages"
+			],
+			[
+				"doc",
+				"PyYapf: Format Document"
+			],
+			[
+				"view",
+				"View In Browser"
+			],
+			[
+				"term op ",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"terminus op",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"INSTALL",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"key",
+				"Package Control: Satisfy Dependencies"
+			],
+			[
+				"build ",
+				"Build: New Build System"
+			],
+			[
+				"compose",
+				"Build With: Docker Compose"
+			],
+			[
+				"docu",
+				"Build With: Docker Compose - Docker-compose build"
+			],
+			[
+				"terminu",
+				"Preferences: Terminus Command Palette"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"isnt",
+				"Package Control: Install Package"
+			],
+			[
+				" install",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Disable Package"
+			],
+			[
+				"men",
+				"View: Toggle Menu"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"raw",
+				"Raw Line Edit: Toggle"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"php path",
+				"PHP Coding Standards Fixer: Fix this file (PHP Code Beautifier)"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"enable",
+				"Package Control: Enable Package"
+			],
+			[
+				"Package Control: dis",
+				"Package Control: Disable Package"
+			],
+			[
+				"rst",
+				"Set Syntax: reStructuredText"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 57.0,
+		"history":
+		[
+			"exit();",
+			"exit()",
+			"exit",
+			"clear"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/work/Git/aws-logger"
+	],
+	"file_history":
+	[
+		"/home/work/Git/Admin Stuff/cloudwatch-to-mongo.py",
+		"/home/work/Git/Admin Stuff/LogLogger.py",
+		"/home/work/Git/Admin Stuff/lambda_function.py",
+		"/usr/lib/python3.7/json/__init__.py",
+		"/home/work/Git/blockchange_be/compose/local/django/Dockerfile.builder",
+		"/home/work/Git/blockchange_be/requirements/base.txt",
+		"/home/work/Git/blockchange_be/local-new.yml",
+		"/home/work/Git/blockchange_be/compose/production/django/Dockerfile",
+		"/home/work/Git/blockchange_be/compose/local/django/Dockerfile.slim",
+		"/home/work/Git/blockchange_be/compose/local/django/Dockerfile.new",
+		"/home/work/Git/blockchange_be/compose/local/django/old.builder",
+		"/home/work/Git/blockchange_be/compose/local/django/Dockerfile.runtime",
+		"/home/work/Git/blockchange_be/setup.py",
+		"/home/work/Git/blockchange_be/local.yml",
+		"/home/work/Git/blockchange_be/compose/local/django/Dockerfile",
+		"/home/work/Git/blockchange_be/requirements/local.txt",
+		"/home/work/Git/blockchange_be/local.logs.yml",
+		"/home/work/Git/blockchange_be/local.new.yml",
+		"/home/work/Desktop/comparenew.txt",
+		"/home/work/Desktop/compareold.txt",
+		"/home/work/Desktop/new.Dockerfile",
+		"/home/work/Desktop/asdfsadf.py",
+		"/home/work/Git/blockchange_be/.dockerignore",
+		"/home/work/Git/blockchange_be/.coveragerc",
+		"/tmp/aws-export-basic+1569651742/apigw-key.json",
+		"/tmp/aws-export-basic+1569651742/s3.log",
+		"/tmp/aws-export-basic+1569651742/cloudtrail.json",
+		"/tmp/aws-export-basic+1569651742/ec2.json",
+		"/tmp/aws-export-basic+1569651742/test.json",
+		"/tmp/aws-export-basic+1569648595/s3.json",
+		"/tmp/aws-export-basic+1569648465/ec2.json",
+		"/tmp/aws-export-basic+1569648465/cloudtrail.json",
+		"/tmp/aws-export-basic+1569647481/cloudtrail.json",
+		"/tmp/aws-export-basic+1569646168/ec2.json",
+		"/home/work/.config/sublime-text-3/Packages/User/ActualVim.sublime-settings",
+		"/home/work/.config/sublime-text-3/Packages/User/Buck-pkg-mgr",
+		"/home/work/.config/sublime-text-3/Packages/User/notest",
+		"/home/work/.config/sublime-text-3/Packages/User/multistage+wheel",
+		"/home/work/tmp.json",
+		"/home/work/.config/sublime-text-3/Packages/User/gradle-phg-mgr",
+		"/home/work/.config/sublime-text-3/Packages/User/pex-pkg-mgr",
+		"/home/work/.config/sublime-text-3/Packages/User/Pants-Pkg-Mgr",
+		"/home/work/Git/Vagrant-Landing/VVV-develop/vvv-config.yml",
+		"/home/work/Git/Vagrant-Landing/vccw/site.yaml",
+		"/home/work/Git/Vagrant-Landing/wordpress-master/README.md",
+		"/home/work/Git/Vagrant-Landing/VVV-develop/README.md",
+		"/home/work/Git/Vagrant-Landing/vccw/.editorconfig",
+		"/home/work/Git/Vagrant-Landing/vccw/.gitignore",
+		"/home/work/Git/Vagrant-Landing/vccw/ansible.cfg",
+		"/home/work/Git/Vagrant-Landing/vccw/provision/default.yml",
+		"/home/work/Git/Vagrant-Landing/vccw/provision/playbook.yml",
+		"/home/work/Git/Vagrant-Landing/Our Site/plugin-list.txt",
+		"/home/work/Git/Vagrant-Landing/vccw/README.md",
+		"/home/work/Git/Vagrant-Landing/vccw/Vagrantfile",
+		"/home/work/Git/Vagrant-Landing/vccw/LICENSE",
+		"/home/work/Git/Vagrant-Landing/vccw/site.yml",
+		"/home/work/Git/blockchange_be/requirements/production.txt",
+		"/home/work/Git/blockchange_be/trading/errors.py",
+		"/home/work/Git/new_landing/wikiadd",
+		"/home/work/Git/blockchange_be/notes/methods.txt",
+		"/home/work/Git/blockchange_be/requirements.txt",
+		"/home/work/Git/blockchange_be/notes/deptree",
+		"/home/work/Git/blockchange_be/blockchange.egg-info/SOURCES.txt",
+		"/home/work/Git/blockchange_be/compose/production/django/entrypoint",
+		"/home/work/Git/blockchange_be/notes/Dockerfile(python3.6-alpine)",
+		"/home/work/Git/blockchange_be/compose/local/django/Dockerfile.buster",
+		"/home/work/Git/blockchange_be/notes/#",
+		"/home/work/Git/blockchange_be/glpk-notes.txt",
+		"/home/work/Git/blockchange_be/MANIFEST.in",
+		"/home/work/Git/blockchange_be/compose/production/django/Dockerfile.new",
+		"/home/work/Git/blockchange_be/compose/production/django/start",
+		"/home/work/Git/blockchange_be/api/views.py",
+		"/home/work/Git/blockchange_be/utility/install_python_dependencies.sh",
+		"/rootfs-pkgs.txt",
+		"/.manjaro-tools",
+		"/desktopfs-pkgs.txt",
+		"/package-lock.json",
+		"/.gmailieer.json",
+		"/crypto_keyfile.bin",
+		"/kdeinit5__0",
+		"/home/work/Git/blockchange_be/manage.py",
+		"/home/work/Git/blockchange_be/local_hotfix.yml",
+		"/home/work/Git/blockchange_be/LICENSE",
+		"/home/work/Git/blockchange_be/compose/production/postgres/Dockerfile",
+		"/home/work/Git/blockchange_be/compose/local/django/celery/Dockerfile",
+		"/home/work/Git/blockchange_be/compose/production/caddy/Dockerfile",
+		"/home/work/Git/blockchange_be/compose/test1/caddy/Dockerfile",
+		"/home/work/Git/blockchange_be/compose/local/django/celery/worker/start",
+		"/home/work/Git/blockchange_landing/utility/wp-install2.sh",
+		"/home/work/Git/blockchange_landing/utility/wp-install.sh",
+		"/home/work/Git/admin-containers/gliderlabs/logspout/Dockerfile.dev",
+		"/home/work/Git/admin-containers/gliderlabs/logspout/Dockerfile.custom",
+		"/home/work/Git/admin-containers/README.md",
+		"/home/work/Git/admin-containers/logspout-kinesis/docker-compose.yml",
+		"/home/work/Git/admin-containers/logspout-kinesis/Dockerfile",
+		"/home/work/Git/admin-containers/build.sh",
+		"/home/work/Git/admin-containers/logspout-kinesis/modules.go",
+		"/home/work/Git/admin-containers/docker-compose.yml",
+		"/home/work/Git/admin-containers/logspout-kinesis/README.md",
+		"/home/work/Git/admin-containers/buildspec-template.yml",
+		"/home/work/Git/admin-containers/logspout-kinesis-master/docker-compose.yml",
+		"/home/work/Git/admin-containers/logspout-kinesis-master/circle.yml",
+		"/home/work/Git/admin-containers/logspout-kinesis/circle.yml",
+		"/home/work/Git/admin-containers/logspout-kinesis-master/build.sh",
+		"/home/work/Git/admin-containers/logspout-kinesis-master/Dockerfile",
+		"/home/work/Git/admin-containers/logspout-kinesis-master/writer.go",
+		"/home/work/Git/admin-containers/logspout-kinesis-master/flusher.go",
+		"/home/work/Git/admin-containers/logspout-kinesis-master/flusher_test.go",
+		"/home/work/Git/admin-containers/logspout-kinesis-master/buffer.go",
+		"/home/work/Git/blockchange_landing/.gitignore",
+		"/home/work/Git/blockchange_landing/utility/permissionfix.sh",
+		"/home/work/Git/blockchange_landing/init.yml",
+		"/home/work/Git/blockchange_landing/local.yml",
+		"/home/work/Git/blockchange_landing/resources/wpcli/backup.sql",
+		"/home/work/Git/blockchange_landing/resources/plugins/advanced-iframe/js/ai_external.js",
+		"/home/work/Git/blockchange_landing/utility/forward to backend through admin",
+		"/etc/pip.conf",
+		"/home/work/loging-aws-kinesis/PermissionsForStreamtoES.json",
+		"/home/work/loging-aws-kinesis/PermissionsForFirehose.json",
+		"/home/work/loging-aws-kinesis/ekk-send.txt",
+		"/home/work/loging-aws-kinesis/TrustPolicyForCWL.json",
+		"/home/work/loging-aws-kinesis/create-iam-firehouse.txt",
+		"/home/work/Git/new/blockchange_landing/resources/themes/blockchange/backup/page-home3.php",
+		"/home/work/Git/new/blockchange_landing/utility/html/wordpress-2019-09-20-92f04ca.sql",
+		"/home/work/Git/new/blockchange_landing/resources/themes/blockchange/backup/page-home2.php",
+		"/home/work/Git/new/blockchange_landing/resources/themes/blockchange/page-home.php",
+		"/home/work/Git/new/blockchange_landing/resources/themes/blockchange/assets/css/style.css",
+		"/home/work/Git/new/blockchange_landing/resources/plugins/advanced-iframe/js/ai_external.js"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 99.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 370.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Terminus":
+	{
+		"height": 268.0
+	},
+	"output.Terminus 2":
+	{
+		"height": 245.0
+	},
+	"output.exec":
+	{
+		"height": 219.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 221.0
+	},
+	"pinned_build_system": "",
+	"project": "aws-logger.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"docker",
+				"compose/production/django/Dockerfile"
+			],
+			[
+				"local",
+				"local.new.yml"
+			],
+			[
+				"local.tx",
+				"requirements/local.txt"
+			],
+			[
+				"base",
+				"requirements/base.txt"
+			],
+			[
+				"Docker mew",
+				"compose/local/django/Dockerfile.new"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 224.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

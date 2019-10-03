@@ -1,0 +1,6 @@
+boto3
+json
+time
+logging
+pymongo
+botocore

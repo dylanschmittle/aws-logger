@@ -5,13 +5,16 @@ import json
 import json
 import logging
 import time
-import JSONEncoder
 
+from botocore.exceptions import ClientError
+
+from pymongo import MongoClient
 
 class LogLogger():
 
     """Summary
     TODO - Add async to functions that populate __document_que
+    https://docs.python.org/3.6/library/asyncio.html
           1. conncetion to resources
           2. concurrent cwl aws api calls to populate __document_que
           3. squash __document_que
