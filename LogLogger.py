@@ -1,13 +1,13 @@
-"""Summary
-"""
+import EzAws
 import boto3
 import json
 import logging
 import time
-import LogLogger
+
 from botocore.exceptions import ClientError
 
 from pymongo import MongoClient
+
 
 class LogLogger():
 
@@ -38,12 +38,7 @@ class LogLogger():
         self.__mongouri = MONGO_URI
 
         self.__client = boto3.client('logs')
-        self.__s3_client = boto3.client('s3')
 
-        self.__connection = MongoClient(__mongouri)
-
-        self.__db = __connection.testdb_testcollection
-        self.__data = __db.__data
         self.__document_que = []
         self.hasFailed = False
         self.time_end = int(time.time()) * 1000
@@ -69,8 +64,14 @@ class LogLogger():
         Returns:
             TYPE: Description
         """
+        # These two and nested asyncio
         self.put_group(self, "CI")
         self.put_group(self, "Beta")
+        # Wait for the above and then squash
+        self.squash(self)
+        # Send as async
+        self.put(self)
+
         return {'statusCode': 200, 'body': "CI and Beta Fargate Logs Sent"}
 
     def start(self, LOG_GROUPS):
@@ -117,7 +118,8 @@ class LogLogger():
         Returns:
             TYPE: Description
         """
-        result = ezAws.upload_file(self, file_name, object_name=None)
+        self.__s3_client = boto3.client('s3')
+        result = EzAws.upload_file(self, file_name, object_name=None)
         return {'statusCode': 200, 'body': result}
 
     def put_group(self, group):
@@ -174,7 +176,8 @@ class LogLogger():
     def squash(self):
         """Summary
         Delete Empty Message Logs
-        Delete Duplicate Logs
+        Sort objects in documents
+        Delete Duplicate Logs by comparing neighboring objects
         Args:
             __document_que (TYPE): Description
         TODO
@@ -183,23 +186,30 @@ class LogLogger():
         """
         return {'statusCode': 501, 'body': "Not Implemented"}
 
-    def put(self):
+    def put_mongo(self):
+
+        self.__connection = MongoClient(self.__mongouri)
+        self.__db = self.__connection.testdb_testcollection
+        self.__data = self.__db.__data
         # Can we insert the whole documnet as it stands?
         try:
-            __db.insert_many(__document_que)
+            self.__db.insert_many(self.__document_que)
+
         # If we cant, throw an error and dump document & self
         except ClientError as e:
             # print json.dumps(__document_que)
             logging.error(e)
+
         # Can we insert the document piece by piece?
         else:
-            for x in __document_que:
-                response[x] = self.__put(x)
-            return response[0]
+            for x in self.__document_que:
+                self.response[x] = self.__put(x)
+            return self.response[0]
+
         finally:
-            connection.close()
-            #SNS email bomb "SHITS GOING DOWN NO S3 OR LOG DB AVAILABLE"
-        return {'statusCode': 200, 'body': "Que sent to "+str(destination)}
+            self.__connection.close()
+
+        return {'statusCode': 200, 'body': "Que sent to Destination or s3"}
 
     def __put(self, i):
         """Summary.
