@@ -14,14 +14,11 @@ class LogLogger():
     """Summary
     TODO - Add async to functions that populate __document_que
         https://docs.python.org/3.6/library/asyncio.html
-          1. conncetion to resources
-          2. concurrent cwl aws api calls to populate __document_que
-          3. squash __document_que
-          4. concurrent output of __document_que to destinations
-          5. concurrent log return response from destinations
-        hasFailed (bool): Description
-        time_end (TYPE): Description
-        time_start (TYPE): Description
+            1. conncetion to resources
+            2. concurrent cwl aws api calls to populate __document_que
+            3. squash __document_que
+            4. concurrent output of __document_que to destinations
+            5. concurrent log return response from destinations
     """
 
     def __init__(self, MONGO_URI, S3_BUCKET, LOG_GROUPS):
@@ -46,7 +43,7 @@ class LogLogger():
 
     def __init__(self, MONGO_URI, S3_BUCKET, LOG_GROUPS, startTime, stopTime):
         """Summary
-        Overide time 2m interval default represented in ms
+            Overide time 2m interval default represented in ms
         Args:
             MONGO_URI (TYPE): Description
             S3_BUCKET (TYPE): Description
@@ -60,7 +57,7 @@ class LogLogger():
 
     def fetch(self):
         """Summary
-        Default Log fetch, grabs all the streams under the log groups Beta/CI
+            Fetch logs from the desired log groups
         Returns:
             TYPE: Description
         """
@@ -77,8 +74,8 @@ class LogLogger():
 
     def get_all(self):
         """Summary
-        This will Grab all the logs for the default time interval and send
-        them to the default destination
+            This will Grab all the logs for the default time interval and send
+            them to the default destination
         Returns:
             TYPE: Description
         """
@@ -86,7 +83,7 @@ class LogLogger():
 
     def get_taged(self):
         """Summary
-        TODO
+            TODO
         Returns:
             TYPE: Description
         """
@@ -94,7 +91,7 @@ class LogLogger():
 
     def put_cwl(self):
         """Summary
-        TODO
+            TODO
         Returns:
             TYPE: Description
         """
@@ -102,7 +99,7 @@ class LogLogger():
 
     def put_s3(self, file_name,  object_name=None):
         """Summary
-        TODO
+            TODO
         Args:
             file_name (TYPE): Description
             object_name (None, optional): Description
@@ -115,10 +112,9 @@ class LogLogger():
 
     def put_group(self, group):
         """Summary
-        TODO
+            TODO
         Args:
             group (TYPE): Description
-        TODO
         Returns:
             TYPE: Description
         """
@@ -138,11 +134,10 @@ class LogLogger():
 
     def put_stream(self, group, stream):
         """Summary.
-        TODO
+            TODO
         Args:
             group (TYPE): Description
             stream (TYPE): Description
-        TODO
         Returns:
             TYPE: Description
         """
@@ -166,12 +161,11 @@ class LogLogger():
 
     def squash(self):
         """Summary
-        Delete Empty Message Logs
-        Sort objects in documents
-        Delete Duplicate Logs by comparing neighboring objects
+            Delete Empty Message Logs
+            Sort objects in documents
+            Delete Duplicate Logs by comparing neighboring objects
         Args:
             __document_que (TYPE): Description
-        TODO
         Returns:
             TYPE: Description
         """
@@ -243,7 +237,7 @@ class LogLogger():
 
     def dumps(self):
         """Summary
-        Returns a Serialized JSON String of class variables
+            Returns a Serialized JSON String of class variables
         Returns:
             TYPE: JSON formatted string
         """
