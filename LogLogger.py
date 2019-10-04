@@ -12,6 +12,10 @@ from pymongo import MongoClient
 class LogLogger():
 
     """Summary
+    Docker Use Instructions: (https://hub.docker.com/_/mongo)
+        $ docker run --name db -d mongo:latest
+        $ docker run -it --network net --rm mongo mongo --host db test
+
     TODO - Add async to functions that populate __document_que
         https://docs.python.org/3.6/library/asyncio.html
             1. conncetion to resources
@@ -20,7 +24,7 @@ class LogLogger():
             4. concurrent output of __document_que to destinations
             5. concurrent log return response from destinations
     """
-    def __init__(self, MONGO_URI, S3_BUCKET, LOG_GROUPS):
+    def __init__(self, MONGO_URI, S3_BUCKET=None, LOG_GROUPS=, ):
         """Summary
         Initialize The Connections that We Can make
         We make 3 connections: s3  cloudwatch  mongodb
@@ -29,10 +33,12 @@ class LogLogger():
             S3_BUCKET (TYPE): Description
             LOG_GROUPS (TYPE): Description
         """
+        self.wordList = wordList if wordList is not None else []
+
         self.__logGroups = LOG_GROUPS
         self.__bucket = S3_BUCKET
         self.__mongouri = MONGO_URI
-
+        self.__mongouri2 = MONGO_URI_2
         self.__client = boto3.client('logs')
 
         self.__document_que = []
@@ -54,6 +60,10 @@ class LogLogger():
         self.time_end = int(time.time()) * 1000
         self.time_start = ((int(time.time())) * 1000) - 120000
 
+    @classmethod
+    def change_uri(cls)
+
+        return {'statusCode': 200, 'body': "Not Implemented"}
     def fetch(self):
         """Summary
             Fetch logs from the desired log groups
