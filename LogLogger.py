@@ -20,7 +20,6 @@ class LogLogger():
             4. concurrent output of __document_que to destinations
             5. concurrent log return response from destinations
     """
-
     def __init__(self, MONGO_URI, S3_BUCKET, LOG_GROUPS):
         """Summary
         Initialize The Connections that We Can make
