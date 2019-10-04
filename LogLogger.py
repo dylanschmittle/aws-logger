@@ -209,7 +209,7 @@ class LogLogger():
             self.__db.insert(self.__document_que[i])
         except ClientError as e:
             logging.error(e)
-            print(t + " time \/n")
+            print(t + " time ")
             print(json.dumps(self.__document_que[i]))
         # Case 1
         else:
