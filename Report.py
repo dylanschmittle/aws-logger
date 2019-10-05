@@ -1,5 +1,5 @@
 import EzAws
-import LogLogger
+import WatchCloudLogs
 import json
 import logging
 import pymongo
