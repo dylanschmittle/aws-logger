@@ -9,7 +9,7 @@ from botocore.exceptions import ClientError
 from pymongo import MongoClient
 
 
-class LogLogger():
+class WatchCloudLogs():
 
     """Summary
     Docker Use Instructions: (https://hub.docker.com/_/mongo)
@@ -24,7 +24,7 @@ class LogLogger():
             4. concurrent output of __document_que to destinations
             5. concurrent log return response from destinations
     """
-    def __init__(self, MONGO_URI, S3_BUCKET=None, LOG_GROUPS=, ):
+    def __init__(self, MONGO_URI, S3_BUCKET=None, LOG_GROUPS=['CI', 'Beta']):
         """Summary
         Initialize The Connections that We Can make
         We make 3 connections: s3  cloudwatch  mongodb
@@ -34,7 +34,7 @@ class LogLogger():
             LOG_GROUPS (TYPE): Description
         """
         self.wordList = wordList if wordList is not None else []
-
+        self._log = logging.getLogger()
         self.__logGroups = LOG_GROUPS
         self.__bucket = S3_BUCKET
         self.__mongouri = MONGO_URI
@@ -61,7 +61,17 @@ class LogLogger():
         self.time_start = ((int(time.time())) * 1000) - 120000
 
     @classmethod
-    def change_uri(cls)
+    def change_uri(cls, new_uri)
+    ```
+    Try to connect to the new db uri
+    ```
+        try:
+            cls.__mongouri = new_uri
+            self.__connection = MongoClient(self.__mongouri)
+            self.__db = self.__connection.testdb_testcollection
+            self.__data = self.__db.__data
+            self.__connection.close()
+        except ClientError as e:
 
         return {'statusCode': 200, 'body': "Not Implemented"}
     def fetch(self):
@@ -264,3 +274,9 @@ class LogLogger():
             'hasFailed': self.hasFailed,
             'time_start': self.time_start,
         })
+
+    def log_self(self, e=Exception):
+        e_log = {
+            'vars': self.dumps(self),
+            'exception': e.dumps,
+        }
