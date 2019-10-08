@@ -33,4 +33,5 @@ class EzAws():
 
         return response
 
-    def 
+    def download_file(self, file_name, bucket, object_name=None):
+        return {'statusCode': 501, 'body': "Not Implemented"}

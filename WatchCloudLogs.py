@@ -10,12 +10,10 @@ from pymongo import MongoClient
 
 
 class WatchCloudLogs():
-
     """Summary
     Docker Use Instructions: (https://hub.docker.com/_/mongo)
         $ docker run --name db -d mongo:latest
         $ docker run -it --network net --rm mongo mongo --host db test
-
     TODO - Add async to functions that populate __document_que
         https://docs.python.org/3.6/library/asyncio.html
             1. conncetion to resources
@@ -24,56 +22,60 @@ class WatchCloudLogs():
             4. concurrent output of __document_que to destinations
             5. concurrent log return response from destinations
     """
-    def __init__(self, MONGO_URI, S3_BUCKET=None, LOG_GROUPS=['CI', 'Beta']):
+    def __init__(self, MONGO_URI=None, S3_BUCKET=None, MONGO_COLLECTION="awsLogs", LOG_GROUPS=['CI', 'Beta'], startTime=None, stopTime=None):
         """Summary
-        Initialize The Connections that We Can make
-        We make 3 connections: s3  cloudwatch  mongodb
+            Initialize The Connections that We Can make
+            We make 3 connections: s3  cloudwatch  mongodb
         Args:
             MONGO_URI (TYPE): Description
             S3_BUCKET (TYPE): Description
             LOG_GROUPS (TYPE): Description
         """
-        self.wordList = wordList if wordList is not None else []
+        # Work with python internal logging class
         self._log = logging.getLogger()
+        # #####################################################################
+        # if(LOG_GROUPS = None)
+        #     self.__logGroups = LOG_GROUPS
+        # else
+        #     self.__logGroups = ['CI', 'Beta']
+        # #####################################################################
+        # self.__logGroups = LOG_GROUPS if LOG_GROUPS is not None else ['CI', 'Beta']
+        # #####################################################################
         self.__logGroups = LOG_GROUPS
         self.__bucket = S3_BUCKET
         self.__mongouri = MONGO_URI
-        self.__mongouri2 = MONGO_URI_2
-        self.__client = boto3.client('logs')
-
+        self.__collection_str = MONGO_COLLECTION
+        self.__s3_client = boto3.client('logs')
         self.__document_que = []
+        self.__connection = MongoClient(self.__mongouri)
+        self.__db = self.__connection.testdb_testcollection
+        self.__collection = self.__db[self.__collection_str]
+        self.time_end = int(time.time()) * 1000
+        self.time_start = ((int(time.time())) * 1000) - 120000
         self.hasFailed = False
-        self.time_end = int(time.time()) * 1000
-        self.time_start = ((int(time.time())) * 1000) - 120000
+    # def __init__(self, MONGO_URI, S3_BUCKET, LOG_GROUPS, startTime, stopTime):
+    #     self.logLogger(self, MONGO_URI, S3_BUCKET, LOG_GROUPS)
+    #     self.time_end = int(time.time()) * 1000
+    #     self.time_start = ((int(time.time())) * 1000) - 120000
 
-    def __init__(self, MONGO_URI, S3_BUCKET, LOG_GROUPS, startTime, stopTime):
-        """Summary
-            Overide time 2m interval default represented in ms
-        Args:
-            MONGO_URI (TYPE): Description
-            S3_BUCKET (TYPE): Description
-            LOG_GROUPS (TYPE): Description
-            startTime (TYPE): Description
-            stopTime (TYPE): Description
-        """
-        self.logLogger(self, MONGO_URI, S3_BUCKET, LOG_GROUPS)
-        self.time_end = int(time.time()) * 1000
-        self.time_start = ((int(time.time())) * 1000) - 120000
+    def change_uri(self, new_uri):
+        temp_uri = str(self.__mongouri)
+        self.__mongouri = new_uri
 
-    @classmethod
-    def change_uri(cls, new_uri)
-    ```
-    Try to connect to the new db uri
-    ```
         try:
-            cls.__mongouri = new_uri
             self.__connection = MongoClient(self.__mongouri)
             self.__db = self.__connection.testdb_testcollection
-            self.__data = self.__db.__data
-            self.__connection.close()
-        except ClientError as e:
+            self.__collection = self.__db[self.__collection_str]
+            # self.__connection.close()
 
-        return {'statusCode': 200, 'body': "Not Implemented"}
+        except Exception as e:
+            # print(e)
+            self.__init__(self, temp_uri, self.__bucket, self.__logGroups)
+            # print(str(self.dumps(self)))
+            return {'statusCode': 500, 'body': str(e)}
+
+        return {'statusCode': 200, 'body': "Sucessful Connection Established"}
+
     def fetch(self):
         """Summary
             Fetch logs from the desired log groups
@@ -81,13 +83,15 @@ class WatchCloudLogs():
             TYPE: Description
         """
         # These two and nested asyncio
+        # print(self.__logGroups)
         for x in self.__logGroups:
-            self.put_group(self, self.__logGroups[x])
+            print("Fetching Log Group: "+x)
+            self.put_group(x)
 
         # Wait for the above and then squash
-        self.squash(self)
+        # self.squash(self)
 
-        # For DEBUG only, switch back later
+        # For DEBUG only, switch back to response style later
         # return {'statusCode': 200, 'body': "CI and Beta Fargate Logs Sent"}
         return self.__document_que
 
@@ -137,17 +141,19 @@ class WatchCloudLogs():
         Returns:
             TYPE: Description
         """
-        response = self.__client.describe_log_streams(
+        response = self.__s3_client.describe_log_streams(
             logGroupName=group,
             orderBy='LastEventTime',
             descending=True,
             limit=50,
         )
         # Iterate through response to get stream names
-        result = {}
+        result = []
         for x in response['logStreams']:
-            logStreamName = response['logStreams'][x]['logStreamName']
-            result.append(self.put_stream(self, logStreamName))
+            # print(x)
+            logStreamName = x['logStreamName']
+            # print(logStreamName)
+            result.append(self.put_stream(group, logStreamName))
         # TODO iterate results and determine response
         return {'statusCode': 200, 'body': str(group)+":Stream Names Consumed"}
 
@@ -160,18 +166,18 @@ class WatchCloudLogs():
         Returns:
             TYPE: Description
         """
-        response = self.__client.get_log_events(
+        # print("put_stream("+stream+")")
+
+        response = self.__s3_client.get_log_events(
             logGroupName=group,
-            logStreamName=stream,
+            logStreamName=str(stream),
             startTime=self.time_start,
             endTime=self.time_end,
         )
-
+        # print(response['events'])
         for i in response['events']:
-            m = response['events'][i]['message']
-            t = response['events'][i]['timestamp']
-            f = "[Time]: "+t+" [Message]: "+m
-            self.__document_que.append(f)
+            self.__document_que.append(i)
+            # print(i)
 
         return {
             'statusCode': 200,
@@ -191,28 +197,19 @@ class WatchCloudLogs():
         return {'statusCode': 501, 'body': "Not Implemented"}
 
     def put_mongo(self):
-
-        self.__connection = MongoClient(self.__mongouri)
-        self.__db = self.__connection.testdb_testcollection
-        self.__data = self.__db.__data
         # Can we insert the whole documnet as it stands?
         try:
-            self.__db.insert_many(self.__document_que)
+            self.__collection.insert_many(self.__document_que)
 
         # If we cant, throw an error and dump document & self
-        except ClientError as e:
-            # print json.dumps(__document_que)
-            logging.error(e)
-
+        except Exception as e:
+            print("!@!@! Error Yo !@!@")
+            #logging.error(e)
         # Can we insert the document piece by piece?
         else:
             for x in self.__document_que:
-                self.response[x] = self.__put(x)
-            return self.response[0]
-
-        finally:
-            self.__connection.close()
-
+                self.__put(x)
+            return {'statusCode': 200, 'body': "Single Insert Sucessful"}
         return {'statusCode': 200, 'body': "Que sent to Destination or s3"}
 
     def __put(self, i):
@@ -239,14 +236,13 @@ class WatchCloudLogs():
                 )
             return {
                 'statusCode': 202,
-                'body': "Exception : document object ["+i+"] sent to s3",
+                'body': "Exception : document sent to s3",
             }
         # Case 2
         finally:
-            del self.__document_que[i]
             return {
                 'statusCode': 200,
-                'body': "document object ["+i+"] sent to destination",
+                'body': "document sent to destination",
             }
         # Case 3
         return {
@@ -257,18 +253,19 @@ class WatchCloudLogs():
     def dumps(self):
         """Summary
             Returns a Serialized JSON String of class variables
+            TODO: Add in Post Connection Info currently commented out
         Returns:
             TYPE: JSON formatted string
         """
         return json.dumps({
-            '__db': self.__db,
-            '__data': self.__data,
+            # '__db': self.__db,
+            # '__collection': self.__collection,
+            # '__s3_client': self.__s3_client,
+            # '__connection': self.__connection,
             '__bucket': self.__bucket,
-            '__client': self.__client,
             '__mongouri': self.__mongouri,
             '__logGroups': self.__logGroups,
-            '__s3_client': self.__s3_client,
-            '__connection': self.__connection,
+            '__collection_str': self.__collection_str,
             '__document_que': self.__document_que,
             'time_end': self.time_end,
             'hasFailed': self.hasFailed,
@@ -280,3 +277,63 @@ class WatchCloudLogs():
             'vars': self.dumps(self),
             'exception': e.dumps,
         }
+        return e_log
+
+"""Simple Testing Method
+
+Tests:
+    Initizile
+    Change DB
+    Get Single Strean
+    Get all a Log Group's Streams
+    Get Multiple Groups
+    Error Handle Connection Issues
+    Internal Error Log w/ Python
+    Send To s3
+    Squashing Duplicates
+"""
+
+# Assume Lambda Has Permissions and Access to Resources, or local CLI tool is configured and has Permissions
+
+uri = "mongodb+srv://dylan:lVA51KGhSXxoAgW1@cluster0-fipww.gcp.mongodb.net/test?retryWrites=true&w=majority"
+uri_badcreds = "mongodb+srv://dyln:lVA66666hSXxoAgW1@cluster0-fipww.gcp.mongodb.net/test?retryWrites=true&w=majority"
+uri_fake = "mongodb+srv://lan:lVA51KGAgW1@cluster0-fipww.gcp.mo.net/test?retryWrites=true&w=majority"
+uri_invalid = "mongoERRdb+srv://user:lVA5zzhSXxoAgW1@fake.mongodb.net/fake?out"
+s3 = "mongo-db-overflow-log-backup"
+s3_dne = "mongo-db-nonexistant-s3"
+
+print("===========START __init__ & dumps TEST========")
+print("(1) Constructor Passed URI and s3")
+testlog = WatchCloudLogs(uri, s3)
+variabledict = testlog.dumps()
+print(variabledict)
+# testlogInvalid = WatchCloudLogs()
+# variabledictInvalid = testlogInvalid.dumps()
+# print("(2) Default Constructor")
+# print(variabledictInvalid)
+print("===========END TEST=======================")
+
+print("===========START MONGO URI TEST===========")
+# print("(1) Invalid URI")
+# response = testlog.change_uri(uri_invalid)
+# print(response)
+# print("(2) Invalid DNS")
+# response = testlog.change_uri(uri_fake)
+# print(response)
+# print("(3) Invalid Creds")
+# response = testlog.change_uri(uri_badcreds)
+# print(response)
+print("(4) Valid Creds")
+response = testlog.change_uri(uri)
+print(response)
+print("==========END MONGO URI TEST==============")
+
+print("========START DEFAULT STREAM TEST==========")
+testlog = WatchCloudLogs(uri, s3)
+document = testlog.fetch()
+# print(document)
+print("**Sending To DB")
+response = testlog.put_mongo()
+print(response)
+
+print("========END DEFAULT STREAM TEST============")
