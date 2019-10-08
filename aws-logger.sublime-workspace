@@ -4,6 +4,66 @@
 		"selected_items":
 		[
 			[
+				"put",
+				"put_mongo\tabc"
+			],
+			[
+				"logSr",
+				"logStreamName\tabc"
+			],
+			[
+				"__",
+				"__collection\tabc"
+			],
+			[
+				"aws",
+				"awsLogs\tabc"
+			],
+			[
+				"MON",
+				"MONGO_COLLECTION\tabc"
+			],
+			[
+				"has",
+				"hasFailed\tabc"
+			],
+			[
+				"__doc",
+				"__document_que\tabc"
+			],
+			[
+				"dump",
+				"dumps\tfunction"
+			],
+			[
+				"Invalid",
+				"InvalidURI"
+			],
+			[
+				"fake",
+				"fakeuri\tabc"
+			],
+			[
+				"ch",
+				"change_uri\tfunction"
+			],
+			[
+				"var",
+				"variabledictInvalid\tabc"
+			],
+			[
+				"test",
+				"testlog\tabc"
+			],
+			[
+				"sel",
+				"self.__logGroups\tabc"
+			],
+			[
+				"L",
+				"LOG_GROUPS\tabc"
+			],
+			[
 				"put_",
 				"put_stream\tabc"
 			],
@@ -30,10 +90,6 @@
 			[
 				"__do",
 				"__document_que\tabc"
-			],
-			[
-				"ch",
-				"chdir"
 			],
 			[
 				"default",
@@ -151,6 +207,40 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "WatchCloudLogs.py",
+			"settings":
+			{
+				"buffer_size": 11486,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "WatchCloudLogs.py",
+			"settings":
+			{
+				"buffer_size": 11486,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".env",
+			"settings":
+			{
+				"buffer_size": 945,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "EzAws.py",
+			"settings":
+			{
+				"buffer_size": 959,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -163,6 +253,34 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"run ",
+				"SublimeREPL: Python - RUN current file"
+			],
+			[
+				"run",
+				"SublimeREPL: Python - RUN current file"
+			],
+			[
+				"run python",
+				"SublimeREPL: Python - RUN current file"
+			],
+			[
+				"python Rel",
+				"SublimeREPL: Python"
+			],
+			[
+				"repl python",
+				"SublimeREPL: Python"
+			],
+			[
+				"to",
+				"View: Toggle Side Bar"
+			],
+			[
+				"toggl",
+				"View: Toggle Side Bar"
+			],
 			[
 				"insta",
 				"Package Control: Install Package"
@@ -456,7 +574,7 @@
 	},
 	"console":
 	{
-		"height": 57.0,
+		"height": 61.0,
 		"history":
 		[
 			"exit();",
@@ -480,6 +598,10 @@
 	],
 	"file_history":
 	[
+		"/home/work/Git/aws-logger/PossibleErrors.txt",
+		"/home/work/Git/aws-logger/WatchCloudLogs.py",
+		"/home/work/Git/aws-logger/Report.py",
+		"/usr/lib/python3.7/site-packages/pymongo/mongo_client.py",
 		"/home/work/Git/Admin Stuff/cloudwatch-to-mongo.py",
 		"/home/work/Git/Admin Stuff/LogLogger.py",
 		"/home/work/Git/Admin Stuff/lambda_function.py",
@@ -603,11 +725,7 @@
 		"/home/work/loging-aws-kinesis/TrustPolicyForCWL.json",
 		"/home/work/loging-aws-kinesis/create-iam-firehouse.txt",
 		"/home/work/Git/new/blockchange_landing/resources/themes/blockchange/backup/page-home3.php",
-		"/home/work/Git/new/blockchange_landing/utility/html/wordpress-2019-09-20-92f04ca.sql",
-		"/home/work/Git/new/blockchange_landing/resources/themes/blockchange/backup/page-home2.php",
-		"/home/work/Git/new/blockchange_landing/resources/themes/blockchange/page-home.php",
-		"/home/work/Git/new/blockchange_landing/resources/themes/blockchange/assets/css/style.css",
-		"/home/work/Git/new/blockchange_landing/resources/plugins/advanced-iframe/js/ai_external.js"
+		"/home/work/Git/new/blockchange_landing/utility/html/wordpress-2019-09-20-92f04ca.sql"
 	],
 	"find":
 	{
@@ -618,6 +736,8 @@
 		"height": 99.0,
 		"where_history":
 		[
+			"<current file>",
+			""
 		]
 	},
 	"find_state":
@@ -625,6 +745,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"change",
+			"__client",
+			"client",
+			"__data",
+			"cls"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -632,6 +757,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"__collection",
+			"self"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -642,8 +769,155 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "WatchCloudLogs.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11486,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11486,
+								11486
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"git_savvy.repo_path": "/home/work/Git/aws-logger",
+							"show_definitions": false,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "WatchCloudLogs.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11486,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10612,
+								10612
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"git_savvy.repo_path": "/home/work/Git/aws-logger",
+							"show_definitions": false,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5093.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": ".env",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 945,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								548,
+								548
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"git_savvy.repo_path": "/home/work/Git/aws-logger",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 562.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "EzAws.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 959,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								959,
+								959
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"git_savvy.repo_path": "/home/work/Git/aws-logger",
+							"show_definitions": false,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 128.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -664,16 +938,36 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.482076153406,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
+			0.635649567259,
 			1.0
 		]
 	},
@@ -756,7 +1050,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 3,
 	"settings":
 	{
 	},
@@ -764,7 +1058,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 224.0,
+	"side_bar_width": 228.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
