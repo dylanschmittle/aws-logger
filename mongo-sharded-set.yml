@@ -1,3 +1,4 @@
+# https://dzone.com/articles/composing-a-sharded-mongodb-on-docker
 version: '2'
 services:
   mongorsn1:
