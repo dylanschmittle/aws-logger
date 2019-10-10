@@ -1,0 +1,135 @@
+MongoDB shell version v4.2.0
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("eec79e9a-45ed-4d29-83c9-0adf8ad817ad") }
+MongoDB server version: 4.2.0
+{
+	"set" : "mongors1conf",
+	"date" : ISODate("2019-10-10T03:15:38.797Z"),
+	"myState" : 1,
+	"term" : NumberLong(1),
+	"syncingTo" : "",
+	"syncSourceHost" : "",
+	"syncSourceId" : -1,
+	"configsvr" : true,
+	"heartbeatIntervalMillis" : NumberLong(2000),
+	"optimes" : {
+		"lastCommittedOpTime" : {
+			"ts" : Timestamp(1570677330, 2),
+			"t" : NumberLong(1)
+		},
+		"lastCommittedWallTime" : ISODate("2019-10-10T03:15:30.519Z"),
+		"readConcernMajorityOpTime" : {
+			"ts" : Timestamp(1570677330, 2),
+			"t" : NumberLong(1)
+		},
+		"readConcernMajorityWallTime" : ISODate("2019-10-10T03:15:30.519Z"),
+		"appliedOpTime" : {
+			"ts" : Timestamp(1570677330, 2),
+			"t" : NumberLong(1)
+		},
+		"durableOpTime" : {
+			"ts" : Timestamp(1570677330, 2),
+			"t" : NumberLong(1)
+		},
+		"lastAppliedWallTime" : ISODate("2019-10-10T03:15:30.519Z"),
+		"lastDurableWallTime" : ISODate("2019-10-10T03:15:30.519Z")
+	},
+	"lastStableRecoveryTimestamp" : Timestamp(1570677300, 2),
+	"lastStableCheckpointTimestamp" : Timestamp(1570677300, 2),
+	"members" : [
+		{
+			"_id" : 0,
+			"name" : "mongocfg1:27017",
+			"ip" : "172.19.0.3",
+			"health" : 1,
+			"state" : 1,
+			"stateStr" : "PRIMARY",
+			"uptime" : 184,
+			"optime" : {
+				"ts" : Timestamp(1570677330, 2),
+				"t" : NumberLong(1)
+			},
+			"optimeDate" : ISODate("2019-10-10T03:15:30Z"),
+			"syncingTo" : "",
+			"syncSourceHost" : "",
+			"syncSourceId" : -1,
+			"infoMessage" : "",
+			"electionTime" : Timestamp(1570677183, 1),
+			"electionDate" : ISODate("2019-10-10T03:13:03Z"),
+			"configVersion" : 1,
+			"self" : true,
+			"lastHeartbeatMessage" : ""
+		},
+		{
+			"_id" : 1,
+			"name" : "mongocfg2:27017",
+			"ip" : "172.19.0.7",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 166,
+			"optime" : {
+				"ts" : Timestamp(1570677330, 2),
+				"t" : NumberLong(1)
+			},
+			"optimeDurable" : {
+				"ts" : Timestamp(1570677330, 2),
+				"t" : NumberLong(1)
+			},
+			"optimeDate" : ISODate("2019-10-10T03:15:30Z"),
+			"optimeDurableDate" : ISODate("2019-10-10T03:15:30Z"),
+			"lastHeartbeat" : ISODate("2019-10-10T03:15:37.050Z"),
+			"lastHeartbeatRecv" : ISODate("2019-10-10T03:15:38.402Z"),
+			"pingMs" : NumberLong(0),
+			"lastHeartbeatMessage" : "",
+			"syncingTo" : "mongocfg1:27017",
+			"syncSourceHost" : "mongocfg1:27017",
+			"syncSourceId" : 0,
+			"infoMessage" : "",
+			"configVersion" : 1
+		},
+		{
+			"_id" : 2,
+			"name" : "mongocfg3:27017",
+			"ip" : "172.19.0.2",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 166,
+			"optime" : {
+				"ts" : Timestamp(1570677330, 2),
+				"t" : NumberLong(1)
+			},
+			"optimeDurable" : {
+				"ts" : Timestamp(1570677330, 2),
+				"t" : NumberLong(1)
+			},
+			"optimeDate" : ISODate("2019-10-10T03:15:30Z"),
+			"optimeDurableDate" : ISODate("2019-10-10T03:15:30Z"),
+			"lastHeartbeat" : ISODate("2019-10-10T03:15:37.049Z"),
+			"lastHeartbeatRecv" : ISODate("2019-10-10T03:15:37.422Z"),
+			"pingMs" : NumberLong(0),
+			"lastHeartbeatMessage" : "",
+			"syncingTo" : "mongocfg1:27017",
+			"syncSourceHost" : "mongocfg1:27017",
+			"syncSourceId" : 0,
+			"infoMessage" : "",
+			"configVersion" : 1
+		}
+	],
+	"ok" : 1,
+	"$gleStats" : {
+		"lastOpTime" : Timestamp(0, 0),
+		"electionId" : ObjectId("7fffffff0000000000000001")
+	},
+	"lastCommittedOpTime" : Timestamp(1570677330, 2),
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1570677330, 2),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1570677330, 2)
+}
+bye
