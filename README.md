@@ -1,4 +1,34 @@
-### Resources
+## MongoDB Setup
+
+Dzone PDF (Composing a Sharded MongoDB Cluster on Docker Containers - DZone Database.pdf)
+
+- Create Cluster and Link Each Shard
+> 
+```
+docker-compose -f mongo-sharded-set.yml up
+sh setup-shard.sh
+```
+
+- Create a Linked Collection
+> 
+```
+sh create-test-db.sh
+```
+
+## How to Use WatchCloudLogs Python Class
+
+```
+    uri = "mongodb+srv://$USER:$PASS@$DNS/$OPTIONS"
+    s3 = "$BUCKET_NAME"
+    testlog = WatchCloudLogs(uri, s3)
+    # We can Access what is would be submitted here
+    document = testlog.fetch()
+    # We can get basic REST response of the submission to the mongo DB
+    response = testlog.put_mongo()
+    print(response)
+```
+
+## Resources
 
 - MongoDB : [Docs](https://docs.mongodb.com/manual/) -  [Python Tutorial](https://docs.mongodb.com/manual/tutorial/getting-started/)  -  [Freetier](https://docs.mongodb.com/manual/tutorial/atlas-free-tier-setup/#create-free-tier-manual)
 
