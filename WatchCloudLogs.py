@@ -53,10 +53,6 @@ class WatchCloudLogs():
         self.time_end = int(time.time()) * 1000
         self.time_start = ((int(time.time())) * 1000) - 120000
         self.hasFailed = False
-    # def __init__(self, MONGO_URI, S3_BUCKET, LOG_GROUPS, startTime, stopTime):
-    #     self.logLogger(self, MONGO_URI, S3_BUCKET, LOG_GROUPS)
-    #     self.time_end = int(time.time()) * 1000
-    #     self.time_start = ((int(time.time())) * 1000) - 120000
 
     def change_uri(self, new_uri):
         temp_uri = str(self.__mongouri)
@@ -293,7 +289,8 @@ Tests:
     Squashing Duplicates
 """
 
-# Assume Lambda Has Permissions and Access to Resources, or local CLI tool is configured and has Permissions
+# Assume Lambda Has Permissions and Access to Resources, or local CLI
+# tool is configured and has Permissions
 
 uri = "mongodb+srv://dylan:lVA51KGhSXxoAgW1@cluster0-fipww.gcp.mongodb.net/test?retryWrites=true&w=majority"
 uri_badcreds = "mongodb+srv://dyln:lVA66666hSXxoAgW1@cluster0-fipww.gcp.mongodb.net/test?retryWrites=true&w=majority"
