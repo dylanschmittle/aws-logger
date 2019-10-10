@@ -15,17 +15,20 @@ sh setup-shard.sh
 sh create-test-db.sh
 ```
 
-## How to Use WatchCloudLogs Python Class
-
+## WatchCloudLogs Python Class
+- Basic Use
+> 
 ```
-    uri = "mongodb+srv://$USER:$PASS@$DNS/$OPTIONS"
-    s3 = "$BUCKET_NAME"
-    testlog = WatchCloudLogs(uri, s3)
-    # We can Access what is would be submitted here
-    document = testlog.fetch()
-    # We can get basic REST response of the submission to the mongo DB
-    response = testlog.put_mongo()
-    print(response)
+
+uri = "mongodb+srv://$USER:$PASS@$DNS/$OPTIONS"
+s3 = "$BUCKET_NAME"
+testlog = WatchCloudLogs(uri, s3)
+# We can Access what is would be submitted here
+document = testlog.fetch()
+# We can get basic REST response of the submission to the mongo DB
+response = testlog.put_mongo()
+print(response)
+
 ```
 
 ## Resources

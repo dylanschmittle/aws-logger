@@ -172,8 +172,14 @@ class WatchCloudLogs():
         )
         # print(response['events'])
         for i in response['events']:
-            self.__document_que.append(i)
-            # print(i)
+            add_stream_name_temp = {
+                'streamname': stream,
+                'message': i['message'],
+                'timestamp': i['timestamp'],
+                'ingestionTime': i['ingestionTime'],
+            }
+            self.__document_que.append(add_stream_name_temp)
+            # print(add_stream_name_temp)
 
         return {
             'statusCode': 200,
@@ -199,11 +205,13 @@ class WatchCloudLogs():
 
         # If we cant, throw an error and dump document & self
         except Exception as e:
-            print("!@!@! Error Yo !@!@")
+            print(e)
             #logging.error(e)
         # Can we insert the document piece by piece?
         else:
+            # print(self.__document_que)
             for x in self.__document_que:
+                # print("In Single Que")
                 self.__put(x)
             return {'statusCode': 200, 'body': "Single Insert Sucessful"}
         return {'statusCode': 200, 'body': "Que sent to Destination or s3"}
@@ -218,6 +226,7 @@ class WatchCloudLogs():
         """
         t = time.time()
         try:
+            # print(self.document_que[i])
             self.__db.insert(self.__document_que[i])
         except ClientError as e:
             logging.error(e)
@@ -230,6 +239,7 @@ class WatchCloudLogs():
                 self.__bucket,
                 self.__document_que[i]
                 )
+            print("HIT ERROR")
             return {
                 'statusCode': 202,
                 'body': "Exception : document sent to s3",
@@ -310,7 +320,7 @@ print(variabledict)
 # print(variabledictInvalid)
 print("===========END TEST=======================")
 
-print("===========START MONGO URI TEST===========")
+# print("===========START MONGO URI TEST===========")
 # print("(1) Invalid URI")
 # response = testlog.change_uri(uri_invalid)
 # print(response)
@@ -320,15 +330,15 @@ print("===========START MONGO URI TEST===========")
 # print("(3) Invalid Creds")
 # response = testlog.change_uri(uri_badcreds)
 # print(response)
-print("(4) Valid Creds")
-response = testlog.change_uri(uri)
-print(response)
-print("==========END MONGO URI TEST==============")
+# print("(4) Valid Creds")
+# response = testlog.change_uri(uri)
+# print(response)
+# print("==========END MONGO URI TEST==============")
 
 print("========START DEFAULT STREAM TEST==========")
 testlog = WatchCloudLogs(uri, s3)
 document = testlog.fetch()
-# print(document)
+print(document)
 print("**Sending To DB")
 response = testlog.put_mongo()
 print(response)
