@@ -154,40 +154,54 @@ class WatchCloudLogs():
         # TODO iterate results and determine response
         return {'statusCode': 200, 'body': str(group)+":Stream Names Consumed"}
 
-    def put_stream_serverless(self, group, stream):
+    def put_serverless(self):
         """Summary.
             TODO
-        Args:
+            Args:
             group (TYPE): Description
             stream (TYPE): Description
-        Returns:
+            Returns:
             TYPE: Description
         """
-        # print("put_stream("+stream+")")
-
-        response = self.__cwl_client.get_log_events(
-            logGroupName=group,
-            logStreamName=str(stream),
-            startTime=self.time_start,
-            endTime=self.time_end,
+        response_serverless_ci = self.__cwl_client.describe_log_groups(
+            logGroupNamePrefix='/aws/lambda/ci-'
         )
-        # print(response['events'])
-        for i in response['events']:
-            print(stream.split("-", 1)[0])
-            add_stream_name_temp = {
-                'environment': group,
-                'container': stream.split("-", 1)[0],
-                'streamname': stream,
-                'message': i['message'],
-                'timestamp': i['timestamp'],
-                'ingestionTime': i['ingestionTime'],
-            }
-            self.__document_que.append(add_stream_name_temp)
-            print(add_stream_name_temp)
+        for x in response_serverless_ci['logGroups']:
+            print(x['logGroupName'])
+        response_serverless_dev = self.__cwl_client.describe_log_groups(
+            logGroupNamePrefix='/aws/lambda/dev-'
+        )
+        for x in response_serverless_dev['logGroups']:
+            print(x['logGroupName'])
+        response_serverless_prd = self.__cwl_client.describe_log_groups(
+            logGroupNamePrefix='/aws/lambda/prd-'
+        )
+        for x in response_serverless_prd['logGroups']:
+            print(x['logGroupName'])
+
+        # response = self.__cwl_client.get_log_events(
+        #     logGroupName=group,
+        #     logStreamName=str(stream),
+        #     startTime=self.time_start,
+        #     endTime=self.time_end,
+        # )
+        # # print(response['events'])
+        # for i in response['events']:
+        #     print(stream.split("/", 1))
+        #     add_stream_name_temp = {
+        #         'environment': group,
+        #         'container': stream.split("/", 1),
+        #         'streamname': stream,
+        #         'message': i['message'],
+        #         'timestamp': i['timestamp'],
+        #         'ingestionTime': i['ingestionTime'],
+        #     }
+        #     self.__document_que.append(add_stream_name_temp)
+        #     print(add_stream_name_temp)
 
         return {
             'statusCode': 200,
-            'body': str(group)+str(stream)+":Log Messages Consumed"
+            'body': "Serverless Log Messages Consumed"
             }
 
     def put_stream(self, group, stream):
@@ -209,7 +223,7 @@ class WatchCloudLogs():
         )
         # print(response['events'])
         for i in response['events']:
-            print(stream.split("/", 1)[0])
+            # print(stream.split("/", 1)[0])
             add_stream_name_temp = {
                 'environment': group,
                 'container': stream.split("/", 1)[0],
@@ -346,16 +360,18 @@ uri_invalid = "mongoERRdb+srv://user:lVA5zzhSXxoAgW1@fake.mongodb.net/fake?out"
 s3 = "mongo-db-overflow-log-backup"
 s3_dne = "mongo-db-nonexistant-s3"
 
-print("===========START __init__ & dumps TEST========")
-print("(1) Constructor Passed URI and s3")
+# print("===========START __init__ & dumps TEST========")
+# print("(1) Constructor Passed URI and s3")
 testlog = WatchCloudLogs(uri, s3)
-variabledict = testlog.dumps()
-print(variabledict)
+# variabledict = testlog.dumps()
+# print(variabledict)
+testlog.put_stream_serverless()
+
 # testlogInvalid = WatchCloudLogs()
 # variabledictInvalid = testlogInvalid.dumps()
 # print("(2) Default Constructor")
 # print(variabledictInvalid)
-print("===========END TEST=======================")
+# print("===========END TEST=======================")
 
 # print("===========START MONGO URI TEST===========")
 # print("(1) Invalid URI")
@@ -372,12 +388,12 @@ print("===========END TEST=======================")
 # print(response)
 # print("==========END MONGO URI TEST==============")
 
-print("========START DEFAULT STREAM TEST==========")
-testlog = WatchCloudLogs(uri, s3)
-document = testlog.fetch()
-# print(document)
-print("**Sending To DB")
-response = testlog.put_mongo()
-print(response)
+# print("========START DEFAULT STREAM TEST==========")
+# testlog = WatchCloudLogs(uri, s3)
+# document = testlog.fetch()
+# # print(document)
+# print("**Sending To DB")
+# response = testlog.put_mongo()
+# print(response)
 
-print("========END DEFAULT STREAM TEST============")
+# print("========END DEFAULT STREAM TEST============")
