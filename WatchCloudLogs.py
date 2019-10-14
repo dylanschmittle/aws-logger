@@ -45,7 +45,8 @@ class WatchCloudLogs():
         self.__bucket = S3_BUCKET
         self.__mongouri = MONGO_URI
         self.__collection_str = MONGO_COLLECTION
-        self.__s3_client = boto3.client('logs')
+        self.__cwl_client = boto3.client('logs')
+        self.__s3_client = boto3.client('s3')
         self.__document_que = []
         self.__connection = MongoClient(self.__mongouri)
         self.__db = self.__connection.testdb_testcollection
@@ -137,7 +138,7 @@ class WatchCloudLogs():
         Returns:
             TYPE: Description
         """
-        response = self.__s3_client.describe_log_streams(
+        response = self.__cwl_client.describe_log_streams(
             logGroupName=group,
             orderBy='LastEventTime',
             descending=True,
@@ -153,6 +154,42 @@ class WatchCloudLogs():
         # TODO iterate results and determine response
         return {'statusCode': 200, 'body': str(group)+":Stream Names Consumed"}
 
+    def put_stream_serverless(self, group, stream):
+        """Summary.
+            TODO
+        Args:
+            group (TYPE): Description
+            stream (TYPE): Description
+        Returns:
+            TYPE: Description
+        """
+        # print("put_stream("+stream+")")
+
+        response = self.__cwl_client.get_log_events(
+            logGroupName=group,
+            logStreamName=str(stream),
+            startTime=self.time_start,
+            endTime=self.time_end,
+        )
+        # print(response['events'])
+        for i in response['events']:
+            print(stream.split("-", 1)[0])
+            add_stream_name_temp = {
+                'environment': group,
+                'container': stream.split("-", 1)[0],
+                'streamname': stream,
+                'message': i['message'],
+                'timestamp': i['timestamp'],
+                'ingestionTime': i['ingestionTime'],
+            }
+            self.__document_que.append(add_stream_name_temp)
+            print(add_stream_name_temp)
+
+        return {
+            'statusCode': 200,
+            'body': str(group)+str(stream)+":Log Messages Consumed"
+            }
+
     def put_stream(self, group, stream):
         """Summary.
             TODO
@@ -164,7 +201,7 @@ class WatchCloudLogs():
         """
         # print("put_stream("+stream+")")
 
-        response = self.__s3_client.get_log_events(
+        response = self.__cwl_client.get_log_events(
             logGroupName=group,
             logStreamName=str(stream),
             startTime=self.time_start,
@@ -266,7 +303,7 @@ class WatchCloudLogs():
         return json.dumps({
             # '__db': self.__db,
             # '__collection': self.__collection,
-            # '__s3_client': self.__s3_client,
+            # '__cwl_client': self.__cwl_client,
             # '__connection': self.__connection,
             '__bucket': self.__bucket,
             '__mongouri': self.__mongouri,
