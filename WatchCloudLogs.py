@@ -172,14 +172,17 @@ class WatchCloudLogs():
         )
         # print(response['events'])
         for i in response['events']:
+            print(stream.split("/", 1)[0])
             add_stream_name_temp = {
+                'environment': group,
+                'container': stream.split("/", 1)[0],
                 'streamname': stream,
                 'message': i['message'],
                 'timestamp': i['timestamp'],
                 'ingestionTime': i['ingestionTime'],
             }
             self.__document_que.append(add_stream_name_temp)
-            # print(add_stream_name_temp)
+            print(add_stream_name_temp)
 
         return {
             'statusCode': 200,
@@ -209,9 +212,7 @@ class WatchCloudLogs():
             #logging.error(e)
         # Can we insert the document piece by piece?
         else:
-            # print(self.__document_que)
             for x in self.__document_que:
-                # print("In Single Que")
                 self.__put(x)
             return {'statusCode': 200, 'body': "Single Insert Sucessful"}
         return {'statusCode': 200, 'body': "Que sent to Destination or s3"}
@@ -226,7 +227,6 @@ class WatchCloudLogs():
         """
         t = time.time()
         try:
-            # print(self.document_que[i])
             self.__db.insert(self.__document_que[i])
         except ClientError as e:
             logging.error(e)
@@ -338,7 +338,7 @@ print("===========END TEST=======================")
 print("========START DEFAULT STREAM TEST==========")
 testlog = WatchCloudLogs(uri, s3)
 document = testlog.fetch()
-print(document)
+# print(document)
 print("**Sending To DB")
 response = testlog.put_mongo()
 print(response)
