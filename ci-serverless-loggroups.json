@@ -1,4 +1,4 @@
-[{
+documents = [{
     'logGroupName': '/aws/lambda/ci-batch-create-historical-day',
     'creationTime': 1567283393827,
     'metricFilterCount': 0,

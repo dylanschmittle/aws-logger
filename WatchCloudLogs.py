@@ -22,7 +22,13 @@ class WatchCloudLogs():
             4. concurrent output of __document_que to destinations
             5. concurrent log return response from destinations
     """
-    def __init__(self, MONGO_URI=None, S3_BUCKET=None, MONGO_COLLECTION="awsLogs", LOG_GROUPS=['CI', 'Beta'], startTime=None, stopTime=None):
+    def __init__(self,
+                 MONGO_URI=None,
+                 S3_BUCKET=None,
+                 MONGO_COLLECTION="awsLogs",
+                 LOG_GROUPS=['CI', 'Beta'],
+                 startTime=None,
+                 stopTime=None):
         """Summary
             Initialize The Connections that We Can make
             We make 3 connections: s3  cloudwatch  mongodb
@@ -32,15 +38,7 @@ class WatchCloudLogs():
             LOG_GROUPS (TYPE): Description
         """
         # Work with python internal logging class
-        self._log = logging.getLogger()
-        # #####################################################################
-        # if(LOG_GROUPS = None)
-        #     self.__logGroups = LOG_GROUPS
-        # else
-        #     self.__logGroups = ['CI', 'Beta']
-        # #####################################################################
-        # self.__logGroups = LOG_GROUPS if LOG_GROUPS is not None else ['CI', 'Beta']
-        # #####################################################################
+        # self._log = logging.getLogger()
         self.__logGroups = LOG_GROUPS
         self.__bucket = S3_BUCKET
         self.__mongouri = MONGO_URI
@@ -188,26 +186,6 @@ class WatchCloudLogs():
             self.put_group(x['logGroupName'])
             print(x['logGroupName'])
 
-        # response = self.__cwl_client.get_log_events(
-        #     logGroupName=group,
-        #     logStreamName=str(stream),
-        #     startTime=self.time_start,
-        #     endTime=self.time_end,
-        # )
-        # # print(response['events'])
-        # for i in response['events']:
-        #     print(stream.split("/", 1))
-        #     add_stream_name_temp = {
-        #         'environment': group,
-        #         'container': stream.split("/", 1),
-        #         'streamname': stream,
-        #         'message': i['message'],
-        #         'timestamp': i['timestamp'],
-        #         'ingestionTime': i['ingestionTime'],
-        #     }
-        #     self.__document_que.append(add_stream_name_temp)
-        #     print(add_stream_name_temp)
-
         return {
             'statusCode': 200,
             'body': "Serverless Log Messages Consumed"
@@ -269,7 +247,7 @@ class WatchCloudLogs():
         # If we cant, throw an error and dump document & self
         except Exception as e:
             print(e)
-            #logging.error(e)
+            # logging.error(e)
         # Can we insert the document piece by piece?
         else:
             for x in self.__document_que:
@@ -345,6 +323,7 @@ class WatchCloudLogs():
         }
         return e_log
 
+
 """Simple Testing Method
 
 Tests:
@@ -375,7 +354,7 @@ testlog = WatchCloudLogs(uri, s3)
 # variabledict = testlog.dumps()
 # print(variabledict)
 testlog.put_serverless()
-
+testlog.put_mongo()
 # testlogInvalid = WatchCloudLogs()
 # variabledictInvalid = testlogInvalid.dumps()
 # print("(2) Default Constructor")
