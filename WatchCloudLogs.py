@@ -84,7 +84,7 @@ class WatchCloudLogs():
         for x in self.__logGroups:
             print("Fetching Log Group: "+x)
             self.put_group(x)
-
+        self.put_serverless(self)
         # Wait for the above and then squash
         # self.squash(self)
 
@@ -163,20 +163,29 @@ class WatchCloudLogs():
             Returns:
             TYPE: Description
         """
+
+        # CI Logs
         response_serverless_ci = self.__cwl_client.describe_log_groups(
             logGroupNamePrefix='/aws/lambda/ci-'
         )
         for x in response_serverless_ci['logGroups']:
+            self.put_group(x['logGroupName'])
             print(x['logGroupName'])
+
+        # Dev Logs
         response_serverless_dev = self.__cwl_client.describe_log_groups(
             logGroupNamePrefix='/aws/lambda/dev-'
         )
         for x in response_serverless_dev['logGroups']:
+            self.put_group(x['logGroupName'])
             print(x['logGroupName'])
+
+        # Production Logs
         response_serverless_prd = self.__cwl_client.describe_log_groups(
             logGroupNamePrefix='/aws/lambda/prd-'
         )
         for x in response_serverless_prd['logGroups']:
+            self.put_group(x['logGroupName'])
             print(x['logGroupName'])
 
         # response = self.__cwl_client.get_log_events(
@@ -365,7 +374,7 @@ s3_dne = "mongo-db-nonexistant-s3"
 testlog = WatchCloudLogs(uri, s3)
 # variabledict = testlog.dumps()
 # print(variabledict)
-testlog.put_stream_serverless()
+testlog.put_serverless()
 
 # testlogInvalid = WatchCloudLogs()
 # variabledictInvalid = testlogInvalid.dumps()
