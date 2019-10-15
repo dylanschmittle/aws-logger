@@ -1,5 +1,0 @@
-Notes.txt
-
-Log Streams to get form Serverless:
-
-

@@ -1,3 +1,6 @@
 boto3
 pymongo
 dnspython
+WatchCloudLogs
+Report
+EzAws

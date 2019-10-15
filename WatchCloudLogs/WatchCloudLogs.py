@@ -11,9 +11,12 @@ from pymongo import MongoClient
 
 class WatchCloudLogs():
     """Summary
-    Docker Use Instructions: (https://hub.docker.com/_/mongo)
-        $ docker run --name db -d mongo:latest
-        $ docker run -it --network net --rm mongo mongo --host db test
+    Basic Use:
+        newWatchCloudLogs = WatchCloudLogs(s3, uri)
+        documentsInQue = newWatchCloudLogs.fetch()
+        # print(documentsInQue)
+        response = newWatchCloudLogs.put_mongo()
+        # print(response)
     TODO - Add async to functions that populate __document_que
         https://docs.python.org/3.6/library/asyncio.html
             1. conncetion to resources
@@ -73,17 +76,20 @@ class WatchCloudLogs():
 
     def fetch(self):
         """Summary
-            Fetch logs from the desired log groups
+            Fetch logs from the desired log groups, (CI and Beta Docker logs,
+            as well as Serverless prd, dev, and ci prefixes)
         Returns:
-            TYPE: Description
+            List(JSON-Objectts): All the logs in que that we will be pushing
+            into a data consumer
         """
         # These two and nested asyncio
         # print(self.__logGroups)
         for x in self.__logGroups:
-            print("Fetching Log Group: "+x)
+            print("Fetching Log Group: " + x)
             self.put_group(x)
         self.put_serverless(self)
         # Wait for the above and then squash
+        # This is to possibly remove things we dont care to log
         # self.squash(self)
 
         # For DEBUG only, switch back to response style later
@@ -115,7 +121,7 @@ class WatchCloudLogs():
         """
         return {'statusCode': 501, 'body': "Not Implemented"}
 
-    def put_s3(self, file_name,  object_name=None):
+    def put_s3(self, file_name, object_name=None):
         """Summary
             TODO
         Args:
@@ -150,7 +156,10 @@ class WatchCloudLogs():
             # print(logStreamName)
             result.append(self.put_stream(group, logStreamName))
         # TODO iterate results and determine response
-        return {'statusCode': 200, 'body': str(group)+":Stream Names Consumed"}
+        return {
+            'statusCode': 200,
+            'body': str(group) + ":Stream Names Consumed"
+        }
 
     def put_serverless(self):
         """Summary.
@@ -164,32 +173,26 @@ class WatchCloudLogs():
 
         # CI Logs
         response_serverless_ci = self.__cwl_client.describe_log_groups(
-            logGroupNamePrefix='/aws/lambda/ci-'
-        )
+            logGroupNamePrefix='/aws/lambda/ci-')
         for x in response_serverless_ci['logGroups']:
             self.put_group(x['logGroupName'])
             print(x['logGroupName'])
 
         # Dev Logs
         response_serverless_dev = self.__cwl_client.describe_log_groups(
-            logGroupNamePrefix='/aws/lambda/dev-'
-        )
+            logGroupNamePrefix='/aws/lambda/dev-')
         for x in response_serverless_dev['logGroups']:
             self.put_group(x['logGroupName'])
             print(x['logGroupName'])
 
         # Production Logs
         response_serverless_prd = self.__cwl_client.describe_log_groups(
-            logGroupNamePrefix='/aws/lambda/prd-'
-        )
+            logGroupNamePrefix='/aws/lambda/prd-')
         for x in response_serverless_prd['logGroups']:
             self.put_group(x['logGroupName'])
             print(x['logGroupName'])
 
-        return {
-            'statusCode': 200,
-            'body': "Serverless Log Messages Consumed"
-            }
+        return {'statusCode': 200, 'body': "Serverless Log Messages Consumed"}
 
     def put_stream(self, group, stream):
         """Summary.
@@ -224,8 +227,8 @@ class WatchCloudLogs():
 
         return {
             'statusCode': 200,
-            'body': str(group)+str(stream)+":Log Messages Consumed"
-            }
+            'body': str(group) + str(stream) + ":Log Messages Consumed"
+        }
 
     def squash(self):
         """Summary
@@ -272,11 +275,8 @@ class WatchCloudLogs():
             print(json.dumps(self.__document_que[i]))
         # Case 1
         else:
-            self.__upload_file(
-                t + "-error",
-                self.__bucket,
-                self.__document_que[i]
-                )
+            self.__upload_file(t + "-error", self.__bucket,
+                               self.__document_que[i])
             print("HIT ERROR")
             return {
                 'statusCode': 202,
@@ -322,66 +322,3 @@ class WatchCloudLogs():
             'exception': e.dumps,
         }
         return e_log
-
-
-"""Simple Testing Method
-
-Tests:
-    Initizile
-    Change DB
-    Get Single Strean
-    Get all a Log Group's Streams
-    Get Multiple Groups
-    Error Handle Connection Issues
-    Internal Error Log w/ Python
-    Send To s3
-    Squashing Duplicates
-"""
-
-# Assume Lambda Has Permissions and Access to Resources, or local CLI
-# tool is configured and has Permissions
-
-uri = "mongodb+srv://dylan:lVA51KGhSXxoAgW1@cluster0-fipww.gcp.mongodb.net/test?retryWrites=true&w=majority"
-uri_badcreds = "mongodb+srv://dyln:lVA66666hSXxoAgW1@cluster0-fipww.gcp.mongodb.net/test?retryWrites=true&w=majority"
-uri_fake = "mongodb+srv://lan:lVA51KGAgW1@cluster0-fipww.gcp.mo.net/test?retryWrites=true&w=majority"
-uri_invalid = "mongoERRdb+srv://user:lVA5zzhSXxoAgW1@fake.mongodb.net/fake?out"
-s3 = "mongo-db-overflow-log-backup"
-s3_dne = "mongo-db-nonexistant-s3"
-
-# print("===========START __init__ & dumps TEST========")
-# print("(1) Constructor Passed URI and s3")
-testlog = WatchCloudLogs(uri, s3)
-# variabledict = testlog.dumps()
-# print(variabledict)
-testlog.put_serverless()
-testlog.put_mongo()
-# testlogInvalid = WatchCloudLogs()
-# variabledictInvalid = testlogInvalid.dumps()
-# print("(2) Default Constructor")
-# print(variabledictInvalid)
-# print("===========END TEST=======================")
-
-# print("===========START MONGO URI TEST===========")
-# print("(1) Invalid URI")
-# response = testlog.change_uri(uri_invalid)
-# print(response)
-# print("(2) Invalid DNS")
-# response = testlog.change_uri(uri_fake)
-# print(response)
-# print("(3) Invalid Creds")
-# response = testlog.change_uri(uri_badcreds)
-# print(response)
-# print("(4) Valid Creds")
-# response = testlog.change_uri(uri)
-# print(response)
-# print("==========END MONGO URI TEST==============")
-
-# print("========START DEFAULT STREAM TEST==========")
-# testlog = WatchCloudLogs(uri, s3)
-# document = testlog.fetch()
-# # print(document)
-# print("**Sending To DB")
-# response = testlog.put_mongo()
-# print(response)
-
-# print("========END DEFAULT STREAM TEST============")
