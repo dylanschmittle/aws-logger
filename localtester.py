@@ -1,5 +1,5 @@
 #!/bin/python3
-from WatchCloudLogs.py import WatchCloudLogs
+import WatchCloudLogs
 """Simple Testing Method
 
 Tests:
