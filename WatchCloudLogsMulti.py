@@ -181,7 +181,7 @@ class WatchCloudLogs():
             logGroupNamePrefix='/aws/lambda/ci-')
         serverless_p_group = list()
         for x in response_serverless_ci['logGroups']:
-            p = multiprocessing.Process(target=self.put_group(x['logGroupName'], args=(self.__document_que)))
+            p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(self.__document_que))
             p.start()
             serverless_p_group.append(p)
             print(x['logGroupName'])
@@ -190,7 +190,7 @@ class WatchCloudLogs():
         response_serverless_dev = self.__cwl_client.describe_log_groups(
             logGroupNamePrefix='/aws/lambda/dev-')
         for x in response_serverless_dev['logGroups']:
-            p = multiprocessing.Process(target=self.put_group(x['logGroupName'], args=(self.__document_que)))
+            p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(self.__document_que))
             p.start()
             serverless_p_group.append(p)
             print(x['logGroupName'])
@@ -199,7 +199,7 @@ class WatchCloudLogs():
         response_serverless_prd = self.__cwl_client.describe_log_groups(
             logGroupNamePrefix='/aws/lambda/prd-')
         for x in response_serverless_prd['logGroups']:
-            p = multiprocessing.Process(target=self.put_group(x['logGroupName'], args=(self.__document_que)))
+            p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(self.__document_que))
             p.start()
             serverless_p_group.append(p)
             print(x['logGroupName'])
