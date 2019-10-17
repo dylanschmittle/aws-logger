@@ -85,18 +85,20 @@ class WatchCloudLogs():
             into a data consumer
         """
         # These two and nested asyncio
-        # print(self.__logGroups)
+        self.put_serverless()
         p_group = list()
         for x in self.__logGroups:
-            p = multiprocessing.Process(target=self.put_group(x), args=(self.__document_que))
-            p.start()
-            # p.join()
+            p = multiprocessing.Process(target=self.put_group, args=(x,))
             p_group.append(p)
+            p.start()
             print("Fetching Log Group Multiprocessing For Group: " + x)
             # self.put_group(x)
         for p in p_group:
+            # p.start()
             p.join()
-        self.put_serverless()
+        # for p in p_group:
+        #     p.join()
+        # self.put_serverless()
         # Wait for the above and then squash
         # This is to possibly remove things we dont care to log
         # self.squash(self)
@@ -183,36 +185,39 @@ class WatchCloudLogs():
         # CI Logs
         response_serverless_ci = self.__cwl_client.describe_log_groups(
             logGroupNamePrefix='/aws/lambda/ci-')
-        serverless_p_group = list()
+        # serverless_p_group = list()
         for x in response_serverless_ci['logGroups']:
-            p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(self.__document_que))
-            p.start()
+            # p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(x['logGroupName'], ))
+            # p.start()
             # p.join()
-            serverless_p_group.append(p)
-            print(x['logGroupName'])
+            # serverless_p_group.append(p)
+            self.__logGroups.append(x['logGroupName'])
+            # print(x['logGroupName'])
 
         # Dev Logs
         response_serverless_dev = self.__cwl_client.describe_log_groups(
             logGroupNamePrefix='/aws/lambda/dev-')
         for x in response_serverless_dev['logGroups']:
-            p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(self.__document_que))
-            p.start()
+            # p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(x['logGroupName'], ))
+            # p.start()
             # p.join()
-            serverless_p_group.append(p)
-            print(x['logGroupName'])
+            # serverless_p_group.append(p)
+            self.__logGroups.append(x['logGroupName'])
+            # print(x['logGroupName'])
 
         # Production Logs
         response_serverless_prd = self.__cwl_client.describe_log_groups(
             logGroupNamePrefix='/aws/lambda/prd-')
         for x in response_serverless_prd['logGroups']:
-            p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(self.__document_que))
-            p.start()
+            # p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(x['logGroupName'], ))
+            # p.start()
             # p.join()
-            serverless_p_group.append(p)
-            print(x['logGroupName'])
-        for p in serverless_p_group:
-            p.join()
-        return {'statusCode': 200, 'body': "Serverless Log Messages Consumed"}
+            # serverless_p_group.append(p)
+            self.__logGroups.append(x['logGroupName'])
+            # print(x['logGroupName'])
+        # for p in serverless_p_group:
+            # p.start()
+            # p.join()
 
     def put_stream(self, group, stream):
         """Summary.
@@ -369,7 +374,7 @@ if __name__ == "__main__":
     print("(1) Constructor Passed URI and s3")
     testlog = WatchCloudLogs(uri, s3)
     variabledict = testlog.dumps()
-    print(variabledict)
+    # print(variabledict)
     # testlogInvalid = WatchCloudLogs()
     # variabledictInvalid = testlogInvalid.dumps()
     # print("(2) Default Constructor")
@@ -387,7 +392,7 @@ if __name__ == "__main__":
     # print(response)
     print("(4) Valid Creds")
     response = testlog.change_uri(uri)
-    print(response)
+    # print(response)
     print("==========END MONGO URI TEST==============")
 
     print("========START DEFAULT STREAM TEST==========")
