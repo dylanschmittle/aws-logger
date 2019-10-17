@@ -4,3 +4,4 @@ dnspython
 WatchCloudLogs
 Report
 EzAws
+multiprocessing
