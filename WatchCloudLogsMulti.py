@@ -89,7 +89,7 @@ class WatchCloudLogs():
         for x in self.__logGroups:
             p = multiprocessing.Process(target=self.put_group(x))
             p.start()
-            p_group.append(p)
+            p_group[x] = p
             print("Fetching Log Group Multiprocessing For Group: " + x)
             # self.put_group(x)
         # self.put_serverless(self)
@@ -161,10 +161,10 @@ class WatchCloudLogs():
             # print(logStreamName)
             result.append(self.put_stream(group, logStreamName))
         # TODO iterate results and determine response
-        return {
-            'statusCode': 200,
-            'body': str(group) + ":Stream Names Consumed"
-        }
+        # return {
+        #     'statusCode': 200,
+        #     'body': str(group) + ":Stream Names Consumed"
+        # }
 
     def put_serverless(self):
         """Summary.
