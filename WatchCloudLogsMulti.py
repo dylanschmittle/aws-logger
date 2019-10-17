@@ -4,6 +4,7 @@ import json
 import logging
 import time
 import multiprocessing
+import os
 
 from botocore.exceptions import ClientError
 
@@ -85,14 +86,16 @@ class WatchCloudLogs():
         """
         # These two and nested asyncio
         # print(self.__logGroups)
-        p_group = {}
+        p_group = list()
         for x in self.__logGroups:
             p = multiprocessing.Process(target=self.put_group(x), args=(self.__document_que))
             p.start()
-            p.join()
-            p_group[x] = p
+            # p.join()
+            p_group.append(p)
             print("Fetching Log Group Multiprocessing For Group: " + x)
             # self.put_group(x)
+        for p in p_group:
+            p.join()
         self.put_serverless()
         # Wait for the above and then squash
         # This is to possibly remove things we dont care to log
