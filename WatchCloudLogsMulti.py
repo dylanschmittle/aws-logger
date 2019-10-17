@@ -87,7 +87,7 @@ class WatchCloudLogs():
         # print(self.__logGroups)
         p_group = list()
         for x in self.__logGroups:
-            p = multiprocessing.Process(target=self.put_group(), args=(x))
+            p = multiprocessing.Process(target=self.put_group(x))
             p.start()
             p_group.append(p)
             print("Fetching Log Group Multiprocessing For Group: " + x)
