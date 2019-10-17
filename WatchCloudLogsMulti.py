@@ -89,6 +89,7 @@ class WatchCloudLogs():
         for x in self.__logGroups:
             p = multiprocessing.Process(target=self.put_group(x), args=(self.__document_que))
             p.start()
+            p.join()
             p_group[x] = p
             print("Fetching Log Group Multiprocessing For Group: " + x)
             # self.put_group(x)
@@ -183,6 +184,7 @@ class WatchCloudLogs():
         for x in response_serverless_ci['logGroups']:
             p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(self.__document_que))
             p.start()
+            # p.join()
             serverless_p_group.append(p)
             print(x['logGroupName'])
 
@@ -192,6 +194,7 @@ class WatchCloudLogs():
         for x in response_serverless_dev['logGroups']:
             p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(self.__document_que))
             p.start()
+            # p.join()
             serverless_p_group.append(p)
             print(x['logGroupName'])
 
@@ -201,9 +204,11 @@ class WatchCloudLogs():
         for x in response_serverless_prd['logGroups']:
             p = multiprocessing.Process(target=self.put_group(x['logGroupName']), args=(self.__document_que))
             p.start()
+            # p.join()
             serverless_p_group.append(p)
             print(x['logGroupName'])
-
+        for p in serverless_p_group:
+            p.join()
         return {'statusCode': 200, 'body': "Serverless Log Messages Consumed"}
 
     def put_stream(self, group, stream):
