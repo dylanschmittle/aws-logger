@@ -85,14 +85,14 @@ class WatchCloudLogs():
         """
         # These two and nested asyncio
         # print(self.__logGroups)
-        p_group = list()
+        p_group = {}
         for x in self.__logGroups:
             p = multiprocessing.Process(target=self.put_group(x))
             p.start()
             p_group.append(p)
             print("Fetching Log Group Multiprocessing For Group: " + x)
             # self.put_group(x)
-        self.put_serverless(self)
+        # self.put_serverless(self)
         # Wait for the above and then squash
         # This is to possibly remove things we dont care to log
         # self.squash(self)
